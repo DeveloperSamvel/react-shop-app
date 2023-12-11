@@ -7,6 +7,7 @@ const Header = ({cartItems}) => {
     <div className='header'>
       <Button>logo</Button>
       <Button>korzina</Button>
+      { cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0) }
     </div>
   )
 }
