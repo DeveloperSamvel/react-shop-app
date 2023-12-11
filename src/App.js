@@ -5,7 +5,19 @@ import {SHOP_ITEMS} from "./contents/SHOP_ITEMS";
 
 function App() {
     const [cartItems, setCartItems] = useState([]);
-    const handleAddItemToCart = (product) => {}
+
+    const handleAddItemToCart = (product) => {
+        setCartItems((currentArrCartItems) => {
+            const existingCartItem = currentArrCartItems.find(({id}) => id === product.id);
+            if(existingCartItem) {
+                return currentArrCartItems.map(cartItem => (
+                    cartItem.id === product.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+                ));
+            }
+
+            return [...currentArrCartItems, {...product, quantity: 1}]
+        });
+    }
 
     return (
         <div>
