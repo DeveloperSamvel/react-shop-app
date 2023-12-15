@@ -3,36 +3,17 @@ import Header from "./components/Header/Header.component";
 import Footer from "./components/Footer/Footer.component";
 import ProductList from "./components/ProductList/ProductList.component";
 
+import getProducts from "./services/getProducts";
+
 function App() {
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-      const url = 'https://apishopv2.yerevan-city.am/api/Product/Search';
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "count": 20,
-          "page": 1,
-          "priceFrom": null,
-          "priceTo": null,
-          "countries": [],
-          "categories": [],
-          "brands": [],
-          "search": "Կաթ",
-          "isDiscounted": false,
-          "sortBy": 3
-        })
-      };
-  
       async function getData() {
         try {
-          const response = await fetch(url, options);
-          const result = await response.json();
-          setProducts(() => (result && result.data && result.data.products));
+          const data = await getProducts();
+          setProducts(() => data);
         } catch (error) {
           console.error(error);
         }
