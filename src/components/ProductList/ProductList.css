@@ -1,9 +1,10 @@
 .container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    justify-content: center;
+    gap: 40px;
 }
 
-.container div {
+/* .container div {
     width: 200px;
-}
+} */

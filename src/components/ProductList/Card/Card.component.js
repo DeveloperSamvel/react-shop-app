@@ -1,22 +1,27 @@
-import React from 'react';
 import './Card.css';
 
 const Card = ({
     img,
     imgAlt,
-    title,
     description,
     secondaryText,
     buttonText,
     onButtonClick,
 }) => {
     return (
-        <div style={{border: "1px solid black"}}>
-            {img && <img src={img} alt={imgAlt} />}
-            <h5>{title}</h5>
-            {secondaryText && <p>{secondaryText}</p>}
-            <span>{description}</span>
-            {buttonText && <button onClick={onButtonClick}>{buttonText}</button>}
+        <div className="card">
+            <div className="card-header">
+                {img && <img className="card-img" src={img} alt={imgAlt} />}
+            </div>
+            <div className="card-body">
+                <div>
+                    {description && <p className="card-text">{description}</p>}
+                </div>
+                <div>
+                    {secondaryText && <p className="card-text">{secondaryText} ֏</p>}
+                    {buttonText && <button onClick={onButtonClick} className="btn btn-primary">{buttonText}</button>}
+                </div>
+            </div>
         </div>
     )
 }

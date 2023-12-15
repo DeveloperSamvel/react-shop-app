@@ -1,10 +1,44 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Header from "./components/Header/Header.component";
 import ProductList from "./components/ProductList/ProductList.component";
-import {SHOP_ITEMS} from "./contents/SHOP_ITEMS";
 
 function App() {
     const [cartItems, setCartItems] = useState([]);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+      const url = 'https://apishopv2.yerevan-city.am/api/Product/Search';
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "count": 20,
+          "page": 1,
+          "priceFrom": null,
+          "priceTo": null,
+          "countries": [],
+          "categories": [],
+          "brands": [],
+          "search": "Կաթ",
+          "isDiscounted": false,
+          "sortBy": 3
+        })
+      };
+  
+      async function getData() {
+        try {
+          const response = await fetch(url, options);
+          const result = await response.json();
+          setProducts(() => (result && result.data && result.data.products));
+        } catch (error) {
+          console.error(error);
+        }
+      }
+  
+      getData();
+    }, []);
 
     const handleAddItemToCart = (product) => {
         setCartItems((currentArrCartItems) => {
@@ -22,7 +56,7 @@ function App() {
     return (
         <div>
             <Header cartItems={cartItems}></Header>
-            <ProductList products={SHOP_ITEMS} onAddItem={handleAddItemToCart}></ProductList>
+            <ProductList products={products} onAddItem={handleAddItemToCart}></ProductList>
         </div>
     );
 }

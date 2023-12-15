@@ -1,4 +1,3 @@
-import React from 'react';
 import Card from './Card/Card.component';
 import './ProductList.css';
 
@@ -7,13 +6,12 @@ const ProductList = ({products, onAddItem}) => {
     <div className='container'>
       {products.map((product) => (
         <Card
-          img=""
+          img={product.photo}
           imgAlt=""
           key={product.id}
-          title={product.name}
-          description={product.description}
+          description={product.nameArm}
           secondaryText={product.price}
-          buttonText="Add"
+          buttonText="+"
           onButtonClick={() => onAddItem(product)}
         />
       ))}
