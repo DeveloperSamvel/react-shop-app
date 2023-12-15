@@ -17,10 +17,10 @@ const Card = ({
                 <div>
                     {description && <p className="card-text">{description}</p>}
                 </div>
-                <div>
-                    {secondaryText && <p className="card-text">{secondaryText} ֏</p>}
-                    {buttonText && <button onClick={onButtonClick} className="btn btn-primary">{buttonText}</button>}
-                </div>
+            </div>
+            <div className='card-footer'>
+                {secondaryText && <p className="card-text">{secondaryText} ֏</p>}
+                {buttonText && <button onClick={onButtonClick} className="btn btn-primary">{buttonText}</button>}
             </div>
         </div>
     )
