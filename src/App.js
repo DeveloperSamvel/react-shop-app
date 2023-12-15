@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import Header from "./components/Header/Header.component";
+import Footer from "./components/Footer/Footer.component";
 import ProductList from "./components/ProductList/ProductList.component";
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
         <div>
             <Header cartItems={cartItems}></Header>
             <ProductList products={products} onAddItem={handleAddItemToCart}></ProductList>
+            <Footer cartItems={cartItems} />
         </div>
     );
 }
