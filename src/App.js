@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import Header from "./components/Header/Header.component";
-import Footer from "./components/Footer/Footer.component";
-import ProductList from "./components/ProductList/ProductList.component";
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './HomePage';
+import ProductList from './components/ProductList/ProductList.component';
+import ContactUs from './components/ContactUs.component';
 import getProducts from "./services/getProducts";
 
 function App() {
@@ -10,16 +10,16 @@ function App() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-      async function getData() {
-        try {
-          const data = await getProducts();
-          setProducts(() => data);
-        } catch (error) {
-          console.error(error);
+        async function getData() {
+            try {
+                const data = await getProducts();
+                setProducts(() => data);
+            } catch (error) {
+                console.error(error);
+            }
         }
-      }
-  
-      getData();
+
+        getData();
     }, []);
 
     const handleAddItemToCart = (product) => {
@@ -36,11 +36,14 @@ function App() {
     }
 
     return (
-        <div>
-            <Header cartItems={cartItems}></Header>
-            <ProductList products={products} onAddItem={handleAddItemToCart}></ProductList>
-            <Footer cartItems={cartItems} />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<HomePage cartItems={cartItems} />}>
+                    <Route index element={<ProductList products={products} onAddItem={handleAddItemToCart} />} />
+                    <Route path="contact" element={<ContactUs />} />
+                </Route>
+            </Routes>
+        </Router>
     );
 }
 
